@@ -9,14 +9,7 @@ app.use(express.static("public"));
 app.use(express.json());
 
 app.post("/checkout", async (req, res) => {
-  const items = req.body;
-  let line_items = [];
-  items.forEach((item) => {
-    line_items.push({
-      price: item.price,
-      quantity: item.quantity,
-    });
-  });
+  const line_items = req.body;
   const session = await stripe.checkout.sessions.create({
     line_items,
     mode: "payment",
